@@ -1,0 +1,143 @@
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+}
+
+/* Tile Styles */
+.tile {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tile-blue { background-color: #3b82f6; }
+.tile-yellow { background-color: #f59e0b; }
+.tile-red { background-color: #ef4444; }
+.tile-black { background-color: #1f2937; }
+.tile-teal { background-color: #14b8a6; }
+.tile-first { 
+    background-color: #8b5cf6; 
+    color: white; 
+    font-size: 0.75rem; 
+}
+
+/* Player Board Styles */
+.player-board {
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Factory Styles */
+.factory {
+    width: 6rem;
+    height: 6rem;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-content: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background-color: #e5e7eb;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239ca3af' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Center Area Styles */
+.center-area {
+    min-height: 8rem;
+    border: 2px solid #6b7280;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Wall Tile Styles */
+.wall-tile {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid #e5e7eb;
+}
+
+.wall-tile.filled {
+     box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.wall-bg-blue { background-color: rgba(59, 130, 246, 0.2); }
+.wall-bg-yellow { background-color: rgba(245, 158, 11, 0.2); }
+.wall-bg-red { background-color: rgba(239, 68, 68, 0.2); }
+.wall-bg-black { background-color: rgba(31, 41, 55, 0.2); }
+.wall-bg-teal { background-color: rgba(20, 184, 166, 0.2); }
+
+/* Pattern Line Styles */
+.pattern-line {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+/* Floor Line Styles */
+.floor-line {
+    display: flex;
+    gap: 0.25rem;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+/* Game State Styles */
+.current-turn {
+    border: 2px solid #2563eb;
+    transform: scale(1.02);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+/* Selection Styles */
+.selected-tile-group {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* Rulebook Styles */
+.rulebook {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
