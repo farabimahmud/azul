@@ -16,6 +16,13 @@ export class GameRenderer {
     setUserInfo(userId, gameId) {
         this.userIdEl.textContent = userId;
         this.gameIdEl.textContent = gameId;
+        
+        // Hide the entire Game ID paragraph for local games
+        if (gameId === 'local-game') {
+            this.gameIdEl.parentElement.style.display = 'none';
+        } else {
+            this.gameIdEl.parentElement.style.display = 'block';
+        }
     }
 
     renderGame(gameState, userId, onTileSelection) {
