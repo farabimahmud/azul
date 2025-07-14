@@ -176,6 +176,12 @@ export class AzulGame {
         let takenTiles = [];
         let remainingTiles = [];
 
+        // Store original state for potential cancellation
+        const originalFactories = this.gameState.factories.map(f => [...f]);
+        const originalCenter = [...this.gameState.center];
+        const originalPlayerFloorLine = [...player.floorLine];
+        const originalFirstPlayerTokenHolder = this.gameState.firstPlayerTokenHolder;
+
         if (source === 'factory') {
             const factory = this.gameState.factories[sourceIndex];
             takenTiles = factory.filter(t => t === color);
@@ -198,7 +204,18 @@ export class AzulGame {
             player, 
             color, 
             takenTiles.length, 
-            (patternLineIndex) => this.placeTilesOnBoard(color, takenTiles.length, patternLineIndex)
+            (patternLineIndex) => this.placeTilesOnBoard(color, takenTiles.length, patternLineIndex),
+            () => {
+                // Cancel callback - restore original state
+                this.gameState.factories = originalFactories;
+                this.gameState.center = originalCenter;
+                player.floorLine = originalPlayerFloorLine;
+                this.gameState.firstPlayerTokenHolder = originalFirstPlayerTokenHolder;
+                
+                // Re-render the game to show the restored state
+                const userId = this.isLocalMode ? "local-player" : this.firebaseService.getUserId();
+                this.gameRenderer.renderGame(this.gameState, userId, this.handleTileSelection.bind(this));
+            }
         );
     }
     

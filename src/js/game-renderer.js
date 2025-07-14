@@ -176,7 +176,7 @@ export class GameRenderer {
         });
     }
     
-    renderPatternLineSelection(player, color, count, onPlacement) {
+    renderPatternLineSelection(player, color, count, onPlacement, onCancel = null) {
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
         
@@ -207,15 +207,27 @@ export class GameRenderer {
                     <button class="w-full text-left p-2 border rounded mb-2 bg-red-100 hover:bg-red-200" data-line-index="-1">
                         Place on Floor Line
                     </button>
+                    <button class="w-full text-center p-2 border rounded bg-gray-100 hover:bg-gray-200 text-gray-700 mt-2" data-action="cancel">
+                        Cancel
+                    </button>
                 </div>
             </div>
         `;
         
         modal.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON') {
-                const lineIndex = parseInt(e.target.dataset.lineIndex);
-                onPlacement(lineIndex);
-                document.body.removeChild(modal);
+                if (e.target.dataset.action === 'cancel') {
+                    // Handle cancel - call onCancel callback if provided
+                    if (onCancel) {
+                        onCancel();
+                    }
+                    document.body.removeChild(modal);
+                } else {
+                    // Handle tile placement
+                    const lineIndex = parseInt(e.target.dataset.lineIndex);
+                    onPlacement(lineIndex);
+                    document.body.removeChild(modal);
+                }
             }
         });
         
