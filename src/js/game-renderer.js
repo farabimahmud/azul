@@ -123,9 +123,9 @@ export class GameRenderer {
             player.patternLines.forEach((line, index) => {
                 const tilesHTML = Array(line.size).fill(0).map((_, i) => {
                     if (i < line.tiles.length) {
-                        return `<div class="tile tile-${line.color} w-8 h-8"></div>`;
+                        return `<div class="tile tile-${line.color}"></div>`;
                     }
-                    return `<div class="w-8 h-8 bg-gray-200 rounded"></div>`;
+                    return `<div class="w-8 h-8 md:w-8 md:h-8 sm:w-5 sm:h-5 bg-gray-200 rounded"></div>`;
                 }).reverse().join('');
                 patternHTML += `<div class="pattern-line mb-1" data-line-index="${index}">${tilesHTML}</div>`;
             });
@@ -145,9 +145,9 @@ export class GameRenderer {
             }
             
             let floorHTML = '';
-            const floorPenaltiesHTML = FLOOR_PENALTIES.map(p => `<div class="text-center text-xs text-red-500 w-8">${p}</div>`).join('');
+            const floorPenaltiesHTML = FLOOR_PENALTIES.map(p => `<div class="text-center text-xs text-red-500 w-8 md:w-8 sm:w-5">${p}</div>`).join('');
             player.floorLine.forEach(tile => {
-                floorHTML += `<div class="tile ${tile === 'first' ? 'tile-first' : `tile-${tile}`} w-8 h-8">${tile === 'first' ? '1st' : ''}</div>`;
+                floorHTML += `<div class="tile ${tile === 'first' ? 'tile-first' : `tile-${tile}`}">${tile === 'first' ? '1st' : ''}</div>`;
             });
 
             playerDiv.innerHTML = `
