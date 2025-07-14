@@ -17,6 +17,16 @@
                 <p class="text-lg text-gray-600">A game of strategy and beautiful tiles.</p>
             </div>
             <div class="text-center mb-10">
+                <!-- Player Count Selection -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Select Number of Players</h3>
+                    <div class="flex justify-center gap-3">
+                        <button class="player-count-btn bg-gray-200 hover:bg-blue-100 text-gray-700 font-semibold py-2 px-4 rounded-lg transition-colors" data-players="2">2 Players</button>
+                        <button class="player-count-btn bg-gray-200 hover:bg-blue-100 text-gray-700 font-semibold py-2 px-4 rounded-lg transition-colors" data-players="3">3 Players</button>
+                        <button class="player-count-btn bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors" data-players="4">4 Players</button>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">Selected: <span id="selected-player-count">4</span> players</p>
+                </div>
                 <button id="play-game-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-lg transition-transform transform hover:scale-105">Play Game</button>
             </div>
             <div class="rulebook max-w-4xl mx-auto">

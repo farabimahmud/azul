@@ -9,11 +9,14 @@ export class AzulGame {
         this.gameRenderer = new GameRenderer();
         this.gameState = {};
         this.isLocalMode = false;
+        this.getPlayerCount = null; // Function to get current player count
         
         this.initializeEventListeners();
     }
 
-    async initialize() {
+    async initialize(initialPlayerCount = 4, getPlayerCountFn = null) {
+        this.getPlayerCount = getPlayerCountFn || (() => initialPlayerCount);
+        
         // Check if we're in development mode (no proper Firebase config)
         const firebaseConfig = typeof window.__firebase_config !== 'undefined' 
             ? JSON.parse(window.__firebase_config) 
@@ -107,7 +110,8 @@ export class AzulGame {
             gameOverModal.style.display = 'none';
         }
         
-        const initialState = GameLogic.createInitialGameState("local-player");
+        const playerCount = this.getPlayerCount ? this.getPlayerCount() : 4;
+        const initialState = GameLogic.createInitialGameState("local-player", playerCount);
         this.gameState = initialState;
         this.gameRenderer.renderGame(this.gameState, "local-player", this.handleTileSelection.bind(this));
         this.checkForAITurn();
@@ -157,7 +161,8 @@ export class AzulGame {
             this.startLocalGame();
         } else {
             const userId = this.firebaseService.getUserId();
-            const initialState = GameLogic.createInitialGameState(userId);
+            const playerCount = this.getPlayerCount ? this.getPlayerCount() : 4;
+            const initialState = GameLogic.createInitialGameState(userId, playerCount);
             this.firebaseService.updateGameState(initialState);
         }
     }

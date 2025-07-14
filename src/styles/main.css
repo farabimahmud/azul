@@ -1,3 +1,21 @@
+/* Player Count Selection Styles */
+.player-count-btn {
+    min-width: 100px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.player-count-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.player-count-btn.active,
+.player-count-btn:focus {
+    border-color: #2563eb;
+    outline: none;
+}
+
 /* Base Styles */
 body {
     font-family: 'Inter', sans-serif;

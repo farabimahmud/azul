@@ -22,7 +22,7 @@ export class GameLogic {
         };
     }
 
-    static createInitialGameState(userId) {
+    static createInitialGameState(userId, numPlayers = NUM_PLAYERS) {
         const bag = [];
         TILE_COLORS.forEach(color => {
             for (let i = 0; i < TILES_PER_COLOR; i++) {
@@ -33,9 +33,40 @@ export class GameLogic {
         const players = [];
         players.push(this.createPlayerState(userId, `Player (You)`));
 
+        // Top 100 English names for AI players
+        const aiNames = [
+            'James', 'Robert', 'John', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Christopher',
+            'Charles', 'Daniel', 'Matthew', 'Anthony', 'Mark', 'Donald', 'Steven', 'Paul', 'Andrew', 'Kenneth',
+            'Joshua', 'Kevin', 'Brian', 'George', 'Timothy', 'Ronald', 'Jason', 'Edward', 'Jeffrey', 'Ryan',
+            'Jacob', 'Gary', 'Nicholas', 'Eric', 'Jonathan', 'Stephen', 'Larry', 'Justin', 'Scott', 'Brandon',
+            'Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen',
+            'Lisa', 'Nancy', 'Betty', 'Helen', 'Sandra', 'Donna', 'Carol', 'Ruth', 'Sharon', 'Michelle',
+            'Laura', 'Sarah', 'Kimberly', 'Deborah', 'Dorothy', 'Lisa', 'Nancy', 'Karen', 'Betty', 'Helen',
+            'Sandra', 'Donna', 'Carol', 'Ruth', 'Sharon', 'Michelle', 'Laura', 'Sarah', 'Kimberly', 'Deborah',
+            'Amy', 'Angela', 'Ashley', 'Brenda', 'Emma', 'Olivia', 'Cynthia', 'Marie', 'Janet', 'Catherine',
+            'Frances', 'Christine', 'Samantha', 'Debra', 'Rachel', 'Carolyn', 'Janet', 'Virginia', 'Maria', 'Heather'
+        ];
+
+        // Fun emoji combinations
+        const emojiCombos = [
+            '🎨🎭', '🌟⚡', '🎯🔥', '🌈🦄', '🎪🎨', '🚀🌙', '🎵🎹', '🌸🦋', '🎲🎰', '🌊🐚',
+            '🍀🌿', '🎪🎨', '🌺🦜', '🎯🏹', '🌟💫', '🎭🎪', '🔮✨', '🌙⭐', '🎨🖌️', '🎵🎶',
+            '🌈🌟', '🦄🌸', '🔥⚡', '🌊🌺', '🎲🃏', '🎯🎪', '🌙💫', '🎨🌟', '🦋🌸', '🎭🔮',
+            '🌺🎪', '⚡🎯', '🦜🌸', '🌟🎨', '🎰🎲', '🐚🌊', '🌿🍀', '🦋🌺', '🎹🎵', '💫🌙',
+            '🖌️🎨', '🎶🎵', '🃏🎲', '🏹🎯', '✨🔮', '⭐🌙', '🎪🎭', '🌸🦄', '🔥🌟', '🐚🌺'
+        ];
+
         const aiStrategies = ['greedy', 'defensive', 'wall-focused'];
-        for (let i = 1; i < NUM_PLAYERS; i++) {
-            players.push(this.createPlayerState(`AI-${i}`, `AI ${i} (${aiStrategies[i-1]})`, true, aiStrategies[i-1]));
+        const shuffledNames = this.shuffle([...aiNames]);
+        const shuffledEmojis = this.shuffle([...emojiCombos]);
+        const shuffledStrategies = this.shuffle([...aiStrategies]);
+
+        for (let i = 1; i < numPlayers; i++) {
+            const name = shuffledNames[i - 1];
+            const emoji = shuffledEmojis[i - 1];
+            const strategy = shuffledStrategies[(i - 1) % shuffledStrategies.length];
+            
+            players.push(this.createPlayerState(`AI-${i}`, `${name} ${emoji}`, true, strategy));
         }
 
         const initialState = {
